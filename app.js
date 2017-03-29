@@ -20,11 +20,34 @@ function getAverageWordLength(words) {
 	return total / countWords(words);
 }
 
+//two functions to breakdown input text in seperate words(had to look at solution and learn more regex)
+function tokenizeText(text) {
+  return text.toLowerCase().match(/\b[^\s]+\b/g).sort();
+}
 
+function removeReturns(text) {
+  return text.replace(/\r?\n|\r/g, "");
+}
 
-function results(event) {
-	$('.submit').click(function showResults(event) {
-		$('dl.text-report').removeClass('hidden');
+//function to define words and display result text with numbers from functions
+function displayText(text) {
+
+	var words = tokenizeText(text);
+	
+	$('dl.js-text-report').removeClass('hidden');
+	$('dd.js-word-count').text(countWords(words));
+	$('dd.js-unique-word-count').text(countUniqueWords(words));
+	$('dd.js-avg-word-length').text(getAverageWordLength(words));
+}
+
+//function for when analyze button is clicked(added removeReturns from solution)
+function getInputText() {
+	$('button.js-submit').click(function (event) {
+		var inputText = $('#user-text').val();
+		displayText(removeReturns(inputText));
 	});
 }
-results();
+
+$(function() {
+	getInputText();
+});
