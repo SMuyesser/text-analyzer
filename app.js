@@ -37,12 +37,13 @@ function displayText(text) {
 	$('dl.js-text-report').removeClass('hidden');
 	$('dd.js-word-count').text(countWords(words));
 	$('dd.js-unique-word-count').text(countUniqueWords(words));
-	$('dd.js-avg-word-length').text(getAverageWordLength(words));
+	$('dd.js-avg-word-length').text(getAverageWordLength(words).toFixed(2) + ' characters');
 }
 
 //function for when analyze button is clicked(added removeReturns from solution)
 function getInputText() {
 	$('button.js-submit').click(function (event) {
+		event.preventDefault();
 		var inputText = $('#user-text').val();
 		displayText(removeReturns(inputText));
 	});
